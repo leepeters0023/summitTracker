@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { firebaseApp, database, googleProvider } from './firebaseApp'
+
 
 class App extends React.Component {
   constructor() {
@@ -9,118 +9,10 @@ class App extends React.Component {
     this.state = {
       user: firebaseApp.auth().currentUser,
       database: null
-    }
+    } 
   }
 
 
-  loginHandler = async (event) => {
-    event.preventDefault()
-
-    let password = event.target.password.value
-    let email = event.target.email.value
-
-    event.target.password.value = ''
-    event.target.email.value = ''
-
-    firebaseApp.auth().signInWithEmailAndPassword(email, password).catch(function (err) {
-      let message = err.message
-      alert(message)
-    })
-
-    firebaseApp.auth().onAuthStateChanged(async (user) => {
-
-      if (user) {
-        await this.state.database.ref('/')
-          .once('value')
-          .then((snapshot) => {
-            let response = snapshot.val().response
-            this.setState({
-              greeting: response
-            })
-          })
-
-        this.setState({
-          user: firebaseApp.auth().currentUser,
-        })
-        alert('signed in!')
-      }
-    })
-  }
-
-  signupHandler = async (event) => {
-    event.preventDefault()
-
-    let password = event.target.password.value
-    let email = event.target.email.value
-
-    firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        alert('signed up')
-      })
-      .catch((err) => {
-        alert(err.message)
-      })
-
-    firebaseApp.auth().onAuthStateChanged(async (user) => {
-
-      if (user) {
-        await this.state.database.ref('/')
-          .once('value')
-          .then((snapshot) => {
-            let response = snapshot.val().response
-            this.setState({
-              greeting: response
-            })
-          })
-
-        this.setState({
-          user: firebaseApp.auth().currentUser,
-        })
-        alert('signed in!')
-      }
-    })
-  }
-
-  logOut = async () => {
-    await firebaseApp.auth().signOut()
-
-    this.setState({
-      user: firebaseApp.auth().currentUser
-    })
-  }
-
-  googleHandler = async () => {
-    googleProvider.addScope('profile');
-    googleProvider.addScope('email')
-
-    await firebaseApp.auth().signInWithPopup(googleProvider)
-      .then(() => {
-        alert('signed in with google')
-        this.setState({ user: firebaseApp.auth().currentUser })
-      })
-
-    await this.state.database.ref('/')
-      .once('value')
-      .then((snapshot) => {
-        let response = snapshot.val().response
-        this.setState({
-          greeting: response
-        })
-      })
-  }
-
-  componentDidMount() {
-    firebaseApp.auth().signOut()
-
-    if (!this.state.database) {
-      this.setState({
-        database: database
-      })
-    }
-  }
-
-  render() {
-    console.log(this.state.user)
 
     return (
       <div>
