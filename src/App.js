@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import intersect from '@turf/intersect'
 import polygonize from '@turf/polygonize'
-import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
 const polyline = require('@mapbox/polyline');
 
 const map = {
@@ -13,20 +13,17 @@ const map = {
 const decode = (line) => {
   return polyline.decode(line); // can add a precision param here too, line, 6 for example
 }
-
-const poly1 = [44.525068, -73.094722]
+// everything must in long lat
+const poly1 = [-73.094722, 44.525068]
 //decode(map.polyline)
-const poly2 = polygonize([[
-  [44.525099, -73.095087],
-  [44.525535, -73.093864],
-  [44.525007, -73.093660],
-  [44.524869, -73.095269],
+const poly2 = ([[
+  [-73.095087, 44.525099],
+  [-73.093864, 44.525535],
+  [-73.093660, 44.525007],
+  [-73.095269, 44.524869],
 ]])
 
 console.log(poly1)
-// var intersection = intersect(poly1, poly2);
-// console.log(intersection)
-
 
 export const App = () => {
   return (
