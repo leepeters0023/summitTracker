@@ -12,6 +12,7 @@
     "@turf/intersect": "^6.3.0",
     "@turf/polygonize": "^6.3.0",
     "firebase": "^7.13.1",
+    "point-in-polygon": "^1.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
