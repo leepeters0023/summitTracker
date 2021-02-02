@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-// import intersect from '@turf/intersect'
-// import polygonize from '@turf/polygonize'
-// import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
-// import polygon from '@turf/helpers';
-// import point from '@turf/helpers';
+import intersect from '@turf/intersect'
+import polygonize from '@turf/polygonize'
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
+import polygon from '@turf/helpers';
+import point from '@turf/helpers';
+import booleanOverlap from "@turf/boolean-overlap"
 const polyline = require('@mapbox/polyline');
 let inside = require('point-in-polygon');
 
@@ -17,16 +18,19 @@ const decode = (line) => {
   return polyline.decode(line); // can add a precision param here too, line, 6 for example
 }
 // everything must in long lat
-const poly1 = [-73.094722, 45.525068];
+const poly1 = decode(map.polyline);
 //decode(map.polyline)
 const poly2 = [
   [-73.095087, 44.525099],
   [-73.093864, 44.525535],
   [-73.093660, 44.525007],
   [-73.095269, 44.524869],
+  [-73.095087, 44.525099],
 ];
 
-console.log(inside(poly1, poly2));
+// point in polygon [-73.094722, 45.525068];
+
+console.log(booleanOverlap(poly1, poly2))
 
 export const App = () => {
   return (
