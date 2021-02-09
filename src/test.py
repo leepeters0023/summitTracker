@@ -1,2 +1,2 @@
-msg = "hello world"
-print(msg)
+
+print (Geohash for 42.6, -5.6)
