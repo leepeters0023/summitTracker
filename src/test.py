@@ -1,2 +1,3 @@
-
-print (Geohash for 42.6, -5.6)
+import pygeohash as pgh
+x = pgh.encode(42.6, -5.6, precision=5)
+print(x)
